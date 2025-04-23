@@ -210,6 +210,8 @@ jobs:
           fetch-depth: 0
           submodules: 'recursive'
 
+
+
       - uses: actions/checkout@v4
         name: Checkout current repository
         if: ${{inputs.override_repository == ''}}
@@ -246,6 +248,10 @@ jobs:
           ref: ${{ inputs.ci_tools_version }}
           repository: ${{ inputs.override_ci_tools_repository }}
           fetch-depth: 0
+
+
+      - name: Find all directories
+        run: find -type d
 
       - name: Build Docker image
         shell: bash
@@ -404,6 +410,9 @@ jobs:
         if: ${{inputs.duckdb_version != ''}}
         run: |
           DUCKDB_GIT_VERSION=${{ inputs.duckdb_version }} make set_duckdb_version
+
+      - name: Find all directories
+        run: find -type d
 
       - name: Tag extension
         if: ${{inputs.extension_tag != ''}}
